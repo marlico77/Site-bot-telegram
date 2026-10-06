@@ -10,7 +10,7 @@ Precisa de Node.js 22 ou superior.
 npm start
 ```
 
-Abra http://localhost:8787. Sem um repositório de versões configurado, os downloads aparecem como “em breve”.
+Abra http://localhost:8787. O site já consulta `marlico77/bot-telegram`. Enquanto não houver uma release estável publicada, os downloads aparecem como “em breve”.
 
 ## Deploy no Netlify
 
@@ -19,20 +19,20 @@ Abra http://localhost:8787. Sem um repositório de versões configurado, os down
 3. Deixe o diretório base e o comando de build vazios. O diretório de publicação é `public`.
 4. Faça o deploy. O arquivo `netlify.toml` configura as funções e o Node.js 22.
 
-Pode publicar antes de criar o repositório dos instaladores: o site abrirá com os downloads “em breve”. Depois, adicione `RELEASES_REPOSITORY` nas variáveis de ambiente do Netlify, disponível para **Functions**, e faça um novo deploy. Não use `npm start` como comando de build.
+Não é necessário configurar o repositório no Netlify: `marlico77/bot-telegram` já é o padrão no código. Não use `npm start` como comando de build.
 
 ## Configuração
 
-Defina estas variáveis no ambiente de hospedagem:
+Estas variáveis são opcionais no ambiente de hospedagem:
 
 | Variável | Valor |
 | --- | --- |
-| `RELEASES_REPOSITORY` | Repositório dos instaladores, no formato `dono/repositorio` |
+| `RELEASES_REPOSITORY` | Sobrescreve o padrão `marlico77/bot-telegram`, se precisar trocar de repositório |
 | `GITHUB_TOKEN` | Opcional; token de leitura para aumentar a cota de consultas ao GitHub |
 | `HOST` | `127.0.0.1` por padrão; `0.0.0.0` em contêiner |
 | `PORT` | `8787` por padrão |
 
-Este repositório contém só o site. O repositório dos instaladores será configurado depois e deve ser **público**, pois os downloads vão direto do GitHub para o visitante. O código dos aplicativos pode ficar em outro repositório privado. Tokens são configurados no Netlify e nunca enviados ao navegador. `HOST` e `PORT` só são usados na execução local ou em Docker.
+Este repositório contém só o site. Os instaladores ficam em `marlico77/bot-telegram`, que deve ser **público**, pois os downloads vão direto do GitHub para o visitante. O código dos aplicativos pode ficar em outro repositório privado. Tokens são configurados no Netlify e nunca enviados ao navegador. `HOST` e `PORT` só são usados na execução local ou em Docker.
 
 No Netlify, a pasta `public` contém a página e `netlify/functions` contém a API. A lógica compartilhada fica em `lib`. O servidor local e o Dockerfile continuam disponíveis para quem preferir rodar fora do Netlify.
 
