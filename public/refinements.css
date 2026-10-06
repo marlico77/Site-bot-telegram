@@ -254,6 +254,11 @@ main > header .badge {
     gap: 8px;
   }
 
+  .site-nav .nav,
+  .site-nav .nav.selected {
+    display: flex;
+  }
+
   .nav,
   .nav.selected {
     min-height: 42px;
