@@ -1,58 +1,65 @@
-# MarlicoBot · Site de downloads
+# MarlicoBot
 
-O repositório `marlico77/Site-bot-telegram` é exclusivo deste site. Publicar somente o conteúdo de updates/, excluindo data, .env e senhas. Código Android/Windows e instaladores pertencem a outro repositório, ainda a definir. RELEASES_REPOSITORY é a configuração desse segundo repositório; não aponta para o site.
+Site de downloads do MarlicoBot para Android e Windows. Busca as versões no GitHub Releases e mostra os instaladores e as novidades de cada atualização.
 
-O site é público, sem cadastro, login ou upload. Publicação de versões acontece pelo navegador do GitHub. Os apps não foram alterados; a integração de atualização ainda precisa ser implementada neles. Os antigos arquivos em data foram preservados e não são mais servidos.
+## Rodar localmente
 
-## Executar
+Precisa de Node.js 22 ou superior.
 
-Node.js 22+, sem dependências. Copie .env.example para .env e configure RELEASES_REPOSITORY=dono/repositorio quando o repositório do sistema existir.
-
-```powershell
-cd 'D:\Aplicações\Bot\updates'
-node --env-file=.env server.mjs
+```sh
+npm start
 ```
 
-Ou use variáveis do ambiente e `node server.mjs`. Sem repositório, a página abre com “em breve”. ADMIN_PASSWORD não é mais usado. GITHUB_TOKEN é opcional para repositório público e obrigatório para privado, com Contents: read. Tokens ficam somente no servidor. Os instaladores selecionados serão públicos no site mesmo se o repositório for privado.
+Abra http://localhost:8787. Sem um repositório de versões configurado, os downloads aparecem como “em breve”.
 
-## Publicar uma versão
+## Configuração
 
-1. No futuro repositório do sistema: Releases → Draft a new release.
-2. Crie uma tag e escreva as novidades.
-3. Anexe o APK e o instalador EXE assinados.
-4. Anexe **updates.json**, baseado em updates.example.json.
-5. Confira os nomes e versões e publique como release estável, marcada como Latest.
+Defina estas variáveis no ambiente de hospedagem:
 
-O site usa `/releases/latest` e não oferece rascunhos ou pré-lançamentos. Cada Latest deve incluir os dois instaladores e o manifesto completo; pode reaproveitar o arquivo da plataforma não modificada. Uma plataforma ausente não será oferecida. O cache atualiza em até cinco minutos.
+| Variável | Valor |
+| --- | --- |
+| `RELEASES_REPOSITORY` | Repositório dos instaladores, no formato `dono/repositorio` |
+| `PUBLIC_URL` | Endereço público do site |
+| `GITHUB_TOKEN` | Token com leitura de conteúdo, se o repositório for privado |
+| `HOST` | `127.0.0.1` por padrão; `0.0.0.0` em contêiner |
+| `PORT` | `8787` por padrão |
 
-### Manifesto
+Este repositório contém só o site. O repositório dos instaladores será configurado depois. Os arquivos oferecidos aqui são públicos, mesmo que venham de um repositório privado.
 
-- schemaVersion: 1.
-- platforms.android/windows.version: X.Y.Z.
-- build: inteiro positivo crescente; Android deve ser igual ao versionCode. O build Windows do exemplo é ilustrativo, deve corresponder ao futuro cliente Windows.
-- minimumBuild: menor compilação aceita; 0 = sem obrigatoriedade. Não pode exceder build.
-- asset: nome exato do APK ou EXE anexo à mesma release.
-- notes: opcional, substitui a descrição da release para essa plataforma.
-- sha256: opcional se GitHub informar digest SHA-256; obrigatório se ausente. Se ambos existirem, devem coincidir.
+Para hospedar, use um servidor Node.js ou o Dockerfile incluído. GitHub Pages sozinho não executa o servidor.
 
-Somente anexos da release configurada são aceitos, sem URLs arbitrárias. Hash verifica integridade e não substitui assinatura do pacote. Use as mesmas chaves de assinatura nas versões futuras. Nunca reutilize build para outro arquivo.
+## Publicar versões
 
-## API
+No repositório dos instaladores, crie uma release estável e marque como **Latest**. Anexe o APK, o instalador Windows e um arquivo `updates.json`:
 
-`GET /api/v1/update?platform=android&build=11` (ou windows).
+```json
+{
+  "schemaVersion": 1,
+  "platforms": {
+    "android": {
+      "version": "1.2.3",
+      "build": 11,
+      "minimumBuild": 0,
+      "asset": "MarlicoBot-1.2.3.apk"
+    },
+    "windows": {
+      "version": "1.2.3",
+      "build": 11,
+      "minimumBuild": 0,
+      "asset": "MarlicoBotPC-Setup.exe"
+    }
+  }
+}
+```
 
-Retorna schemaVersion, status (ready/stale/unconfigured), checkedAt, platform, updateAvailable, mandatory, minimumBuild e release. Release contém versão, build, minimumBuild, notas, tamanho, SHA-256 e URL.
+Ajuste os nomes e números aos arquivos enviados. No Android, `build` é o `versionCode`; no Windows, deve acompanhar a numeração adotada pelo atualizador. `minimumBuild` define a menor compilação aceita; deixe `0` se a atualização for opcional.
 
-mandatory só é true se o catálogo estiver atualizado e build instalado < minimumBuild. Falhas de rede não impõem atualização. Com cache antigo, status=stale e mandatory=false: cliente deve adiar a decisão, sem apagar uma política já conhecida. Sem cache retorna 503. Após falha, aguarda um minuto para consultar novamente. Cache anterior é usado por no máximo 24h, não persiste entre reinícios e pode ainda mostrar uma versão retirada durante indisponibilidade.
+Cada release deve trazer todos os arquivos indicados no manifesto. O site usa a descrição da release como notas e atualiza a consulta a cada cinco minutos. O SHA-256 vem do GitHub; se não estiver disponível, informe `sha256` no manifesto.
 
-O cliente futuro consultará ao iniciar e periodicamente, via HTTPS, validando hash e assinatura antes de abrir o instalador. Instalação pode exigir confirmação do Android/Windows. Não há notificações nem atualizador implementados nos apps nesta etapa.
+## Consulta pelos aplicativos
 
-`/api/releases` alimenta site/widget; `/downloads/ID` transmite o arquivo via servidor sem expor token. Downloads têm timeout de 120 segundos no armazenamento do GitHub. O servidor precisa de banda suficiente.
+`GET /api/v1/update?platform=android&build=11`
 
-## Hospedagem e widget
+Aceita `android` ou `windows`. Retorna a versão disponível, o link, o hash e se a atualização é obrigatória. A integração nos aplicativos ainda está pendente.
 
-Site requer Node.js ou Docker com proxy HTTPS, não apenas GitHub Pages estático. Configure PUBLIC_URL com domínio definitivo e HOST=0.0.0.0 no contêiner. Não há hospedagem pública feita nesta etapa. Variáveis podem ser injetadas pela plataforma; não enviar .env ao repositório. Cache é por processo; múltiplas instâncias aumentam consultas. Token de leitura pode aumentar a cota de consultas GitHub.
-
-`/widget` é responsivo e aceita iframe. A página principal não permite iframe. Não há necessidade de disco persistente ou senha administrativa para esta versão.
-
-Documentação GitHub: https://docs.github.com/en/rest/releases/releases
+Se o GitHub estiver indisponível, o servidor pode usar o último resultado por até 24 horas, com `status: stale`. Nesse caso, o cliente deve adiar a decisão sobre obrigatoriedade. Sem resultado anterior, a API retorna `503`.

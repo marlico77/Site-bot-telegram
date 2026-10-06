@@ -58,11 +58,11 @@ async function catalog(){
  try{return {...await pending,status:'ready'};}catch(e){if(cache&&Date.now()-Date.parse(cache.checkedAt)<86400000)return {...cache,status:'stale'};throw e;}
 }
 function json(res,status,value){res.writeHead(status,{'Content-Type':'application/json; charset=utf-8'});res.end(JSON.stringify(value));}
-const files={'/':'index.html','/app.js':'app.js','/style.css':'style.css','/logo.png':'logo.png','/widget':'widget.html'};
+const files={'/':'index.html','/app.js':'app.js','/style.css':'style.css','/logo.png':'logo.png'};
 http.createServer(async(req,res)=>{
  res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','no-referrer');res.setHeader('Cache-Control','no-store');
  const route=new URL(req.url,'http://localhost');
- res.setHeader('Content-Security-Policy',`default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors ${route.pathname==='/widget'?'*':"'none'"}`);
+ res.setHeader('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'");
  try{
   if(req.method!=='GET')throw problem(405,'Este site disponibiliza apenas consultas e downloads.');
   if(route.pathname==='/api/releases'){const c=await catalog();return json(res,200,{status:c.status,checkedAt:c.checkedAt,releases:c.releases});}
