@@ -1,0 +1,48 @@
+/* Font Awesome Free 7.3.1 icons — https://fontawesome.com/license/free */
+.fa-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex: 0 0 auto;
+  background: currentColor;
+  vertical-align: -0.125em;
+  mask: var(--icon) center / contain no-repeat;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+}
+
+.icon-download { --icon: url('/icons/download.svg'); }
+.icon-news { --icon: url('/icons/newspaper.svg'); }
+.icon-android { --icon: url('/icons/android.svg'); }
+.icon-windows { --icon: url('/icons/windows.svg'); }
+
+.nav .fa-icon {
+  width: 17px;
+  height: 17px;
+}
+
+.platform-icon {
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+}
+
+.platform-icon .fa-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.download.primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 9px;
+}
+
+.download.primary .fa-icon {
+  width: 15px;
+  height: 15px;
+}
