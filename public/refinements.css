@@ -60,6 +60,17 @@ aside {
   outline-offset: 3px;
 }
 
+.footer-credit,
+.footer-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.footer-credit { flex-wrap: wrap; }
+.footer-github { gap: 6px; color: #b8c4d1; }
+.footer-github:hover { color: var(--accent); }
+
 main {
   padding-top: 36px;
 }
