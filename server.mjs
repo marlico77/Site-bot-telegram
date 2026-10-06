@@ -6,7 +6,7 @@ import {handle} from './lib/api.mjs';
 
 const root=path.dirname(fileURLToPath(import.meta.url));
 const port=Number(process.env.PORT||8787),host=process.env.HOST||'127.0.0.1';
-const files={'/':'index.html','/app.js':'app.js','/style.css':'style.css','/icons.css':'icons.css','/logo.png':'logo.png','/icons/download.svg':'icons/download.svg','/icons/newspaper.svg':'icons/newspaper.svg','/icons/android.svg':'icons/android.svg','/icons/windows.svg':'icons/windows.svg'};
+const files={'/':'index.html','/app.js':'app.js','/style.css':'style.css','/icons.css':'icons.css','/refinements.css':'refinements.css','/logo.png':'logo.png','/icons/download.svg':'icons/download.svg','/icons/newspaper.svg':'icons/newspaper.svg','/icons/android.svg':'icons/android.svg','/icons/windows.svg':'icons/windows.svg','/icons/check.svg':'icons/check.svg'};
 http.createServer(async(req,res)=>{
  try{
   const url=new URL(req.url,`http://localhost:${port}`);

@@ -1,0 +1,352 @@
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 28px;
+}
+
+body {
+  background-image: radial-gradient(ellipse at 83% 0, #4b164218, transparent 33rem);
+}
+
+aside {
+  width: 220px;
+  padding: 28px 18px;
+}
+
+.brand {
+  margin-bottom: 52px;
+}
+
+.site-nav {
+  display: grid;
+  gap: 7px;
+}
+
+.nav,
+.nav.selected {
+  min-height: 48px;
+  margin: 0;
+  padding: 0 14px;
+  border: 1px solid transparent;
+  border-left: 2px solid transparent;
+  transition: color .2s ease, background-color .2s ease,
+    border-color .2s ease, transform .2s ease;
+}
+
+.nav:hover {
+  color: #f0cde6;
+  background: #241725;
+  transform: translateX(2px);
+}
+
+.nav.selected,
+.nav.selected:hover {
+  color: var(--accent);
+  background: #321a30;
+  border-color: transparent transparent transparent var(--accent);
+  box-shadow: none;
+  transform: none;
+}
+
+.nav:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+main {
+  padding-top: 36px;
+}
+
+main > header {
+  min-height: 70px;
+}
+
+main > header .eyebrow {
+  margin-bottom: 7px;
+}
+
+main > header h1 {
+  font-size: clamp(25px, 2.5vw, 34px);
+  letter-spacing: -1px;
+}
+
+main > header .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+}
+
+.hero {
+  min-height: 218px;
+  margin: 24px 0 22px;
+  padding: 30px clamp(22px, 3.2vw, 42px);
+  border-color: #623252;
+  background:
+    radial-gradient(ellipse at 82% 50%, #ec35ad16, transparent 18rem),
+    linear-gradient(115deg, #211522 0%, #18131f 58%, #15141d 100%);
+  transition: border-color .25s ease, background-color .25s ease;
+}
+
+.hero h2 {
+  margin: 14px 0 12px;
+  font-size: clamp(27px, 3vw, 38px);
+  letter-spacing: -1.2px;
+}
+
+.hero p {
+  max-width: 475px;
+}
+
+.hero-art {
+  width: 148px;
+  height: 148px;
+  margin: 0 3.5% 0 24px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  position: relative;
+  color: var(--accent);
+  border: 1px solid #ff39c83d;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ff39c817 0 34%, #ff39c808 35% 62%, transparent 63%);
+  box-shadow: 0 0 55px #ff39c812, inset 0 0 35px #ff39c80b;
+}
+
+.hero-art::before,
+.hero-art::after,
+.hero-ring {
+  position: absolute;
+  content: "";
+  inset: 12px;
+  border: 1px solid #ff39c82e;
+  border-radius: 50%;
+}
+
+.hero-art::after {
+  inset: 28px;
+  border-style: dashed;
+  opacity: .8;
+}
+
+.hero-ring {
+  inset: -7px;
+  border-color: #ff39c81c;
+}
+
+.hero-art > .fa-icon {
+  z-index: 1;
+  width: 38px;
+  height: 38px;
+  filter: drop-shadow(0 0 10px #ff39c866);
+}
+
+.hero-dot {
+  position: absolute;
+  z-index: 2;
+  width: 8px;
+  height: 8px;
+  top: 19px;
+  right: 22px;
+  border-radius: 50%;
+  background: #ff8cde;
+  box-shadow: 0 0 14px #ff39c8;
+}
+
+.cards {
+  scroll-margin-top: 28px;
+}
+
+.card {
+  transition: border-color .22s ease, transform .22s ease,
+    box-shadow .22s ease;
+}
+
+.card:hover {
+  border-color: #56304d;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px #0002;
+}
+
+#news {
+  scroll-margin-top: 28px;
+  transition: border-color .22s ease, background-color .22s ease;
+}
+
+#news:target {
+  border-color: #653353;
+  background: linear-gradient(145deg, #191820, #131a23 48%);
+}
+
+.release {
+  animation: section-enter .3s ease both;
+}
+
+.release h3 {
+  color: #f5d9ec;
+}
+
+@keyframes section-enter {
+  from { opacity: 0; transform: translateY(7px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 1100px) {
+  aside {
+    width: 205px;
+    padding: 26px 16px;
+  }
+
+  .brand {
+    margin-bottom: 38px;
+  }
+
+  .hero-art {
+    width: 122px;
+    height: 122px;
+    margin-right: 2%;
+  }
+}
+
+@media (max-width: 700px) {
+  aside {
+    position: sticky;
+    z-index: 20;
+    top: 0;
+    width: 100%;
+    padding: 12px 18px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    background: #0e131bf2;
+    backdrop-filter: blur(14px);
+  }
+
+  .brand {
+    margin: 0;
+    gap: 10px;
+    font-size: 18px;
+  }
+
+  .brand img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .brand small {
+    margin-top: 3px;
+  }
+
+  .site-nav {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+  }
+
+  .nav,
+  .nav.selected {
+    min-height: 42px;
+    flex: 1;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 9px;
+    font-size: 13px;
+  }
+
+  .nav:hover {
+    transform: translateY(-1px);
+  }
+
+  .side-note {
+    display: none;
+  }
+
+  main {
+    margin: 0;
+    padding: 22px 18px 28px;
+  }
+
+  main > header {
+    min-height: 52px;
+  }
+
+  main > header h1 {
+    font-size: clamp(23px, 6vw, 30px);
+  }
+
+  main > header .badge {
+    padding: 6px 8px;
+    font-size: 9px;
+  }
+
+  .hero {
+    min-height: 0;
+    margin: 18px 0 18px;
+    padding: 24px 21px;
+  }
+
+  .hero h2 {
+    margin-top: 12px;
+    font-size: clamp(26px, 7vw, 34px);
+  }
+
+  .hero-art {
+    width: 76px;
+    height: 76px;
+    margin: 0 0 0 8px;
+  }
+
+  .hero-art::before { inset: 7px; }
+  .hero-art::after { inset: 16px; }
+  .hero-ring { inset: -4px; }
+  .hero-art > .fa-icon { width: 24px; height: 24px; }
+  .hero-dot { width: 6px; height: 6px; top: 10px; right: 11px; }
+
+  .cards {
+    scroll-margin-top: 118px;
+  }
+
+  #news {
+    scroll-margin-top: 118px;
+  }
+}
+
+@media (max-width: 420px) {
+  aside {
+    padding-inline: 12px;
+  }
+
+  main {
+    padding-inline: 14px;
+  }
+
+  .hero {
+    padding: 21px 17px;
+  }
+
+  .hero-art {
+    width: 58px;
+    height: 58px;
+  }
+
+  .hero-art::before { inset: 5px; }
+  .hero-art::after { inset: 12px; }
+  .hero-art > .fa-icon { width: 20px; height: 20px; }
+  .hero-dot { top: 7px; right: 8px; width: 5px; height: 5px; }
+
+  main > header .badge {
+    gap: 5px;
+    font-size: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}

@@ -14,6 +14,7 @@
 .icon-news { --icon: url('/icons/newspaper.svg'); }
 .icon-android { --icon: url('/icons/android.svg'); }
 .icon-windows { --icon: url('/icons/windows.svg'); }
+.icon-check { --icon: url('/icons/check.svg'); }
 
 .nav .fa-icon {
   width: 17px;

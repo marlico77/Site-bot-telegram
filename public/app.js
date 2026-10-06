@@ -1,6 +1,11 @@
 const $=id=>document.getElementById(id);
 const names={android:'Android · TV Box e celular',windows:'Windows · agente do PC'};
 const esc=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const navLinks=[...document.querySelectorAll('.site-nav .nav')];
+function activateNav(id){navLinks.forEach(link=>{const active=link.hash==='#'+id;link.classList.toggle('selected',active);if(active)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});}
+navLinks.forEach(link=>link.addEventListener('click',event=>{const target=document.querySelector(link.hash);if(!target)return;event.preventDefault();activateNav(target.id);history.replaceState(null,'',link.hash);target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});}));
+if('IntersectionObserver' in window){const sections=['latest','news'].map(id=>document.getElementById(id)).filter(Boolean);const observer=new IntersectionObserver(entries=>{const visible=entries.filter(entry=>entry.isIntersecting).sort((a,b)=>Math.abs(a.boundingClientRect.top-innerHeight*.25)-Math.abs(b.boundingClientRect.top-innerHeight*.25))[0];if(visible)activateNav(visible.target.id);},{rootMargin:'-15% 0px -68% 0px',threshold:[0,.15,.35,.6]});sections.forEach(section=>observer.observe(section));}
+if(location.hash==='#news')activateNav('news');
 async function refresh(){
  try{
   const res=await fetch('/api/releases');const data=await res.json();if(!res.ok)throw Error(data.error||'Não foi possível consultar as versões.');
