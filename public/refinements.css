@@ -264,8 +264,9 @@ main > header .badge {
 
   .site-nav {
     width: 100%;
-    display: flex;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4px;
   }
 
   .site-nav .nav,
@@ -276,11 +277,13 @@ main > header .badge {
   .nav,
   .nav.selected {
     min-height: 42px;
-    flex: 1;
+    min-width: 0;
+    align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 0 9px;
-    font-size: 13px;
+    gap: 6px;
+    padding: 0 5px;
+    font-size: 12px;
+    white-space: nowrap;
   }
 
   .nav:hover {
@@ -297,7 +300,10 @@ main > header .badge {
   }
 
   main > header {
-    min-height: 52px;
+    min-height: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
 
   main > header h1 {
@@ -313,17 +319,29 @@ main > header .badge {
     min-height: 0;
     margin: 18px 0 18px;
     padding: 24px 21px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 76px;
+    column-gap: 12px;
   }
 
+  .hero > div:first-child { display: contents; }
+  .hero .tag { grid-column: 1; grid-row: 1; align-self: end; }
+
   .hero h2 {
-    margin-top: 12px;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin: 10px 0 12px;
     font-size: clamp(26px, 7vw, 34px);
   }
 
+  .hero p { grid-column: 1 / -1; grid-row: 3; }
+
   .hero-art {
-    width: 92px;
-    height: 92px;
-    margin: 0 0 0 8px;
+    grid-column: 2;
+    grid-row: 1;
+    width: 76px;
+    height: 76px;
+    margin: 0;
   }
 
   .cards {
@@ -335,9 +353,10 @@ main > header .badge {
   }
 
   #guide { scroll-margin-top: 118px; }
-  .guide-tabs { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); }
-  .guide-tab { min-width: 0; padding: 9px; }
-  .guide-tab:last-child { grid-column: 1 / -1; }
+  .guide { padding: 21px 18px; }
+  .guide-tabs { display: grid; grid-template-columns: 1fr; gap: 4px; }
+  .guide-tab { min-width: 0; min-height: 42px; padding: 0 14px; text-align: left; }
+  .guide-panel { padding-top: 22px; }
   .guide-heading h3 { font-size: 18px; }
 }
 
@@ -355,9 +374,11 @@ main > header .badge {
   }
 
   .hero-art {
-    width: 72px;
-    height: 72px;
+    width: 62px;
+    height: 62px;
   }
+
+  .hero { grid-template-columns: minmax(0, 1fr) 62px; column-gap: 8px; }
 
   main > header .badge {
     gap: 5px;
