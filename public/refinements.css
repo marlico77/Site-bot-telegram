@@ -185,6 +185,16 @@ main > header .badge {
   color: #f5d9ec;
 }
 
+.notes > :first-child { margin-top: 0; }
+.notes > :last-child { margin-bottom: 0; }
+.notes h4, .notes h5 { margin: 20px 0 8px; color: #f0d4e7; font-size: 14px; }
+.notes h3 { margin: 24px 0 9px; color: #f0d4e7; font-size: 15px; }
+.notes p { margin: 8px 0 15px; overflow-wrap: anywhere; }
+.notes-list { margin: 8px 0 18px; padding-left: 21px; color: #b3bdc9; }
+.notes-list li { padding: 3px 0 3px 3px; line-height: 1.55; }
+.notes-list li::marker { color: var(--accent); }
+.notes code { color: #ffd7f2; border: 1px solid #56304d; background: #241725; border-radius: 5px; padding: 2px 5px; font-size: .9em; }
+
 @keyframes section-enter {
   from { opacity: 0; transform: translateY(7px); }
   to { opacity: 1; transform: translateY(0); }
