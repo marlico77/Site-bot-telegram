@@ -50,18 +50,9 @@ aside {
 .nav.selected:hover {
   color: var(--accent);
   background: #321a30;
-  border-color: transparent transparent transparent var(--accent);
+  border-color: transparent;
   box-shadow: none;
   transform: none;
-}
-
-.nav.selected::before {
-  position: absolute;
-  inset: 9px auto 9px 0;
-  width: 2px;
-  border-radius: 0 3px 3px 0;
-  background: var(--accent);
-  content: "";
 }
 
 .nav:focus-visible {
