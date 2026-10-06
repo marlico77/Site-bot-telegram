@@ -15,6 +15,7 @@
 .icon-android { --icon: url('/icons/android.svg'); }
 .icon-windows { --icon: url('/icons/windows.svg'); }
 .icon-check { --icon: url('/icons/check.svg'); }
+.icon-guide { --icon: url('/icons/guide.svg'); }
 
 .nav .fa-icon {
   width: 17px;

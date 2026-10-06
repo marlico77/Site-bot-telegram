@@ -2,6 +2,8 @@
 
 Site de downloads do MarlicoBot para Android e Windows. Busca as versões no GitHub Releases e mostra os instaladores e as novidades de cada atualização.
 
+O menu **Como usar** reúne as etapas de configuração da TV Box/celular, do agente Windows e do bot no Telegram. A captura do formulário Android em `public/guide` foi feita a partir da interface do aplicativo, com os campos pessoais vazios.
+
 ## Rodar localmente
 
 Precisa de Node.js 22 ou superior.
@@ -68,7 +70,7 @@ Cada release deve trazer todos os arquivos indicados no manifesto. O site usa a 
 
 `GET /api/v1/update?platform=android&build=11`
 
-Aceita `android` ou `windows`. Retorna a versão disponível, o link, o hash e se a atualização é obrigatória. A integração nos aplicativos ainda está pendente.
+Aceita `android` ou `windows`. Retorna a versão disponível, o link, o hash e se a atualização é obrigatória. Os aplicativos consultam essa rota desde a versão 1.3.1.
 
 Se o GitHub estiver indisponível, a função pode usar o último resultado por até 24 horas, com `status: stale`. Nesse caso, o cliente deve adiar a decisão sobre obrigatoriedade. Sem resultado anterior, a API retorna `503`. O cache fica na memória de cada instância; pode desaparecer a qualquer momento no Netlify. O limite de cinco minutos vale para a reutilização de uma instância, não é uma agenda de execução.
 
