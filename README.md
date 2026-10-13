@@ -56,7 +56,7 @@ No repositório dos instaladores, crie uma release estável e marque como **Late
       "version": "1.2.3",
       "build": 11,
       "minimumBuild": 0,
-      "asset": "MarlicoBotPC-Setup.exe"
+      "asset": "MarlicoBotPC-Setup.msi"
     }
   }
 }
@@ -74,4 +74,4 @@ Aceita `android` ou `windows`. Retorna a versão disponível, o link, o hash e s
 
 Se o GitHub estiver indisponível, a função pode usar o último resultado por até 24 horas, com `status: stale`. Nesse caso, o cliente deve adiar a decisão sobre obrigatoriedade. Sem resultado anterior, a API retorna `503`. O cache fica na memória de cada instância; pode desaparecer a qualquer momento no Netlify. O limite de cinco minutos vale para a reutilização de uma instância, não é uma agenda de execução.
 
-Os links `/downloads/ID` redirecionam para o GitHub. APKs e EXEs não atravessam as funções do Netlify. A API só retorna links de anexos da release configurada.
+Os links `/downloads/ID` redirecionam para o GitHub. APKs e MSIs não atravessam as funções do Netlify. O catálogo ainda aceita o EXE de releases anteriores para manter a página de download funcional durante a migração. A partir do novo lançamento, publique MSI no campo `windows.asset`. A API só retorna links de anexos da release configurada.
